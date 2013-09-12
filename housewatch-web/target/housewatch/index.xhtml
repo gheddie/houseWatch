@@ -32,28 +32,9 @@
 				</h:form>
 			</div>
 			<div id="content">
-				<p>West-Ansicht</p>
-				<div id="houseTemplate_westview">					
-					<div id="w_1"><h:graphicImage value="resources/gfx/#{helloWorldBean.w1Opened}.png"></h:graphicImage></div>
-					<div id="w_2"><h:graphicImage value="resources/gfx/#{helloWorldBean.w2Opened}.png"></h:graphicImage></div>
-					<div id="w_3"><h:graphicImage value="resources/gfx/#{helloWorldBean.w3Opened}.png"></h:graphicImage></div>
-					<div id="w_4"><h:graphicImage value="resources/gfx/#{helloWorldBean.w4Opened}.png"></h:graphicImage></div>
-					<h:graphicImage value="resources/gfx/westview.png" />
-				</div>
-				<p>Nord-Ansicht</p>
-				<div id="houseTemplate_northview">					
-					<div id="n_1"><h:graphicImage value="resources/gfx/#{helloWorldBean.n1Opened}.png"></h:graphicImage></div>
-					<div id="n_2"><h:graphicImage value="resources/gfx/#{helloWorldBean.n2Opened}.png"></h:graphicImage></div>
-					<div id="n_3"><h:graphicImage value="resources/gfx/#{helloWorldBean.n3Opened}.png"></h:graphicImage></div>
-					<h:graphicImage value="resources/gfx/northview.png" />
-				</div>
-				<p>Ost-Ansicht</p>
-				<div id="houseTemplate_eastview">					
-					<div id="e_1"><h:graphicImage value="resources/gfx/#{helloWorldBean.e1Opened}.png"></h:graphicImage></div>
-					<div id="e_2"><h:graphicImage value="resources/gfx/#{helloWorldBean.e2Opened}.png"></h:graphicImage></div>
-					<div id="e_3"><h:graphicImage value="resources/gfx/#{helloWorldBean.e3Opened}.png"></h:graphicImage></div>
-					<h:graphicImage value="resources/gfx/eastview.png" />
-				</div>
+				<ui:include src="westview.xhtml" />
+				<ui:include src="northview.xhtml" />
+				<ui:include src="eastview.xhtml" />
 			</div>
 			<div id="aside">
 				<h3>Aside heading</h3>

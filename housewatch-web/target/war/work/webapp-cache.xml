@@ -4,8 +4,10 @@
       <string>currentBuild</string>
       <path-set>
         <pathsSet class="linked-hash-set">
+          <string>eastview.xhtml</string>
           <string>index.xhtml</string>
           <string>META-INF/MANIFEST.MF</string>
+          <string>northview.xhtml</string>
           <string>resources/css/main.css</string>
           <string>resources/gfx/eastview.png</string>
           <string>resources/gfx/northview.png</string>
@@ -14,6 +16,7 @@
           <string>resources/gfx/windowOpened.png</string>
           <string>WEB-INF/beans.xml</string>
           <string>WEB-INF/faces-config.xml</string>
+          <string>westview.xhtml</string>
           <string>WEB-INF/classes/de/gravitex/rp/HelloWorldBean.class</string>
           <string>WEB-INF/classes/de/gravitex/rp/Resources.class</string>
           <string>WEB-INF/classes/de/gravitex/rp/RpUserListProducer.class</string>
