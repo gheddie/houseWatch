@@ -58,7 +58,7 @@ public class RPConnector {
 		return properties;
 	}
 
-	@SuppressWarnings("unchecked")
+	//@SuppressWarnings("unchecked")
 	private static <T> T lookup(String moduleName, String beanName, Class<?> remoteClass) throws NamingException {
 		final Context context = getInitialContext();
 		String lookUp = "ejb:/"+moduleName+"/"+beanName+"!" + remoteClass.getName();
