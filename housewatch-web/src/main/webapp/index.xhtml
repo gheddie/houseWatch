@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<title>Hausüberwachung</title>
+	<h:outputStylesheet name="css/main.css" />
+</h:head>
+<h:body>
+	<h:outputScript name="jsf.js" library="javax.faces" target="body"></h:outputScript>
+	<div id="container">
+		<div id="header">
+			<h1>Hausüberwachung</h1>
+		</div>
+		<div id="navigation">
+			<ul>
+				<li><a href="#">Aussenansicht</a></li>
+				<li><a href="#">Meldungen</a></li>
+			</ul>
+		</div>
+		<div id="content-container">
+			<div id="section-navigation">
+				<h:form>
+					<ul>
+						<li><h:commandLink action="westview" value="West-Ansicht" /></li>
+						<li><h:commandLink action="northview" value="Nord-Ansicht" /></li>
+						<li><h:commandLink action="eastview" value="Ost-Ansicht" /></li>
+					</ul>
+				</h:form>
+			</div>
+			<div id="content">
+				<p>West-Ansicht</p>
+				<div id="houseTemplate_westview">					
+					<div id="w_1"><h:graphicImage value="resources/gfx/#{helloWorldBean.w1Opened}.png"></h:graphicImage></div>
+					<div id="w_2"><h:graphicImage value="resources/gfx/#{helloWorldBean.w2Opened}.png"></h:graphicImage></div>
+					<div id="w_3"><h:graphicImage value="resources/gfx/#{helloWorldBean.w3Opened}.png"></h:graphicImage></div>
+					<div id="w_4"><h:graphicImage value="resources/gfx/#{helloWorldBean.w4Opened}.png"></h:graphicImage></div>
+					<h:graphicImage value="resources/gfx/westview.png" />
+				</div>
+				<p>Nord-Ansicht</p>
+				<div id="houseTemplate_northview">					
+					<div id="n_1"><h:graphicImage value="resources/gfx/#{helloWorldBean.n1Opened}.png"></h:graphicImage></div>
+					<div id="n_2"><h:graphicImage value="resources/gfx/#{helloWorldBean.n2Opened}.png"></h:graphicImage></div>
+					<div id="n_3"><h:graphicImage value="resources/gfx/#{helloWorldBean.n3Opened}.png"></h:graphicImage></div>
+					<h:graphicImage value="resources/gfx/northview.png" />
+				</div>
+				<p>Ost-Ansicht</p>
+				<div id="houseTemplate_eastview">					
+					<div id="e_1"><h:graphicImage value="resources/gfx/#{helloWorldBean.e1Opened}.png"></h:graphicImage></div>
+					<div id="e_2"><h:graphicImage value="resources/gfx/#{helloWorldBean.e2Opened}.png"></h:graphicImage></div>
+					<div id="e_3"><h:graphicImage value="resources/gfx/#{helloWorldBean.e3Opened}.png"></h:graphicImage></div>
+					<h:graphicImage value="resources/gfx/eastview.png" />
+				</div>
+			</div>
+			<div id="aside">
+				<h3>Aside heading</h3>
+				<p>...</p>
+			</div>
+			<div id="footer">Copyright © Site name, 20XX</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		setInterval(function() {
+			location.reload();
+		}, 5000);
+	</script>
+</h:body>
+</html>

@@ -1,0 +1,19 @@
+#java specific
+*.class
+
+.settings/*
+target/*
+.classpath
+bin/*
+.cvsignore
+
+## generic files to ignore
+*.log
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+/target
+/.settings
+/bin
