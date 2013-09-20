@@ -47,20 +47,13 @@ public class HelloWorldBean implements Serializable {
 		return entityManager.createNamedQuery(RpUser.FIND_ALL).getResultList();
 	}
 	
-	public String getW1Opened() {if (windowOpen("w_1")) {return "windowOpened";} else {return "windowClosed";}}
-	public String getW2Opened() {if (windowOpen("w_2")) {return "windowOpened";} else {return "windowClosed";}}
-	public String getW3Opened() {if (windowOpen("w_3")) {return "windowOpened";} else {return "windowClosed";}}
-	public String getW4Opened() {if (windowOpen("w_4")) {return "windowOpened";} else {return "windowClosed";}}
+	public String windowOpen(String windowIdentifier) {
+		if (checkWindowState(windowIdentifier)) {
+			return "windowOpened";} else {return "windowClosed";
+		}
+	}
 	
-	public String getN1Opened() {if (windowOpen("n_1")) {return "windowOpened";} else {return "windowClosed";}}
-	public String getN2Opened() {if (windowOpen("n_2")) {return "windowOpened";} else {return "windowClosed";}}
-	public String getN3Opened() {if (windowOpen("n_3")) {return "windowOpened";} else {return "windowClosed";}}
-	
-	public String getE1Opened() {if (windowOpen("e_1")) {return "windowOpened";} else {return "windowClosed";}}
-	public String getE2Opened() {if (windowOpen("e_2")) {return "windowOpened";} else {return "windowClosed";}}
-	public String getE3Opened() {if (windowOpen("e_3")) {return "windowOpened";} else {return "windowClosed";}}
-
-	private boolean windowOpen(String windowIdentifier) {
+	private boolean checkWindowState(String windowIdentifier) {
 		Query qry = entityManager.createNamedQuery(WindowState.FIND_BY_IDENTIFIER);
 		qry.setParameter("windowIdentifier", windowIdentifier);
 		List resultList = qry.getResultList();
