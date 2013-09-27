@@ -1,63 +1,81 @@
 package de.gravitex.rp.logparser;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import de.gravitex.rp.logic.WindowStateInfo;
 
 public class FhemLogParser {
+
+	public static final String LOGFILE_DIR = "C:\\fhemlog\\";
 	
-	public static final String LOGFILE = "C:\\fhemlog\\CUL_HM_HM_SEC_SC_219D3D-2013.log";
-	
+	public static final String OUTPUT_DIR = "C:\\Users\\stefan.schulz\\Dropbox\\raspberry\\messages";
+
 	public static final String LAN_ADAPTER = "HMLAN1";
-	
+
 	public static final String COMPONENT_NAME = "CUL_HM_HM_SEC_SC_219D3D";
 	
-//	public static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	SimpleDateFormat dfIn = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
-	public WindowStateInfo analyze(Date from) {
+	SimpleDateFormat dfOut = new SimpleDateFormat("yyyyMMdd.HHmmss");
+
+	private String componentName;
+	
+	public FhemLogParser(String componentName) {
+		super();
+		this.componentName = componentName;
+	}
+
+	private ComponentStateDescriptor stateDescriptor() {
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(LOGFILE));
+			int year = Calendar.getInstance().get(Calendar.YEAR);
+			BufferedReader reader = new BufferedReader(new FileReader(LOGFILE_DIR + componentName + "-"+year+".log"));
 			String row = null;
-			WindowStateInfo info = null;
+			ComponentStateDescriptor descriptor = new ComponentStateDescriptor();
 			while ((row = reader.readLine()) != null) {
 				if ((row != null) && (row.length() > 0)) {
-					//String dateStr = row.substring(0, 19).replace("_", " ");
+					String dateStr = row.substring(0, 19);
 					String infoStr = row.substring(21, row.length());
-					Date date = null;
-					//date = df.parse(dateStr);
 					if (infoStr.contains("contact")) {
 						if (infoStr.contains("open")) {
-//							System.out.println("opened at "+date+".");
-							info = WindowStateInfo.OPEN;
+							descriptor.setWindowStateInfo(WindowStateInfo.OPEN);
 						} else if (infoStr.contains("closed")) {
-//							System.out.println("closed at "+date+".");
-							info = WindowStateInfo.CLOSE;
-						} 							
+							descriptor.setWindowStateInfo(WindowStateInfo.CLOSE);
+						}
+						descriptor.setTimeStamp(dfIn.parse(dateStr.replace("_", " ")));
 					}
-				}				
+				}
 			}
-			return info;
+			return descriptor;
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
-		}		
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
-	
-	//------------------------------------------------------------------------------------
 
-	public static void main(String[] args) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(2013, 9, 20, 12, 0);
-		WindowStateInfo result = new FhemLogParser().analyze(calendar.getTime());
-//		System.out.println(result);
-		StringBuffer s = new StringBuffer();
-		s.append("<?xml version=\"1.0\"?>");
-		s.append("\n");
-		s.append("<message identifier=\"w_3\" state=\""+result+"\" />");
-		System.out.println(s.toString());
+	public void writeMessage() {
+		StringBuffer result = new StringBuffer();
+		result.append("<?xml version=\"1.0\"?>");
+		result.append("\n");
+		ComponentStateDescriptor descriptor = stateDescriptor();
+		result.append("<message identifier=\""+componentName+"\" state=\"" + descriptor.getWindowStateInfo() + "\" />");
+//		System.out.println(result.toString());
+		try {
+			BufferedWriter out = new BufferedWriter(new FileWriter(OUTPUT_DIR + "\\" + componentName+"_"+dfOut.format(descriptor.getTimeStamp())+".xml"));
+			String outText = result.toString();
+			out.write(outText);
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
