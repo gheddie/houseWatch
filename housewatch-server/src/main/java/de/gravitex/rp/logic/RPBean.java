@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import de.gravitex.rp.entity.ComponentMessage;
 import de.gravitex.rp.entity.RpUser;
 import de.gravitex.rp.entity.WindowState;
 
@@ -55,16 +56,26 @@ public class RPBean implements RPRemote {
 			break;
 		}
 		
-		WindowState stateInfo = getWindowStateEntry(windowsIdentifier);
-		if (stateInfo == null) {
-			stateInfo = new WindowState();
-			stateInfo.setWindowIdentifier(windowsIdentifier);
-			stateInfo.setWindowState(state);			
-			entityManager.persist(stateInfo);
-		} else {
-			stateInfo.setWindowState(state);
-			entityManager.merge(stateInfo);
-		}		
+		//---
+		
+		ComponentMessage message = new ComponentMessage();
+		message.setComponentidentifier(windowsIdentifier);
+		message.setEventtimestamp(new Date());
+		message.setComponentstate(state);
+		entityManager.persist(message);
+		
+		//---
+		
+//		WindowState stateInfo = getWindowStateEntry(windowsIdentifier);
+//		if (stateInfo == null) {
+//			stateInfo = new WindowState();
+//			stateInfo.setWindowIdentifier(windowsIdentifier);
+//			stateInfo.setWindowState(state);			
+//			entityManager.persist(stateInfo);
+//		} else {
+//			stateInfo.setWindowState(state);
+//			entityManager.merge(stateInfo);
+//		}		
 	}
 
 	private WindowState getWindowStateEntry(Object windowIdentifier) {

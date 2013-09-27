@@ -70,10 +70,13 @@ public class FhemLogParser {
 		result.append("<message identifier=\""+componentName+"\" state=\"" + descriptor.getWindowStateInfo() + "\" />");
 //		System.out.println(result.toString());
 		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(OUTPUT_DIR + "\\" + componentName+"_"+dfOut.format(descriptor.getTimeStamp())+".xml"));
+			String resultFileName = OUTPUT_DIR + "\\" + componentName+"_"+dfOut.format(descriptor.getTimeStamp())+".xml";
+			FileWriter fileWriter = new FileWriter(resultFileName);
+			BufferedWriter out = new BufferedWriter(fileWriter);
 			String outText = result.toString();
 			out.write(outText);
 			out.close();
+			System.out.println("file written to "+resultFileName+".");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
