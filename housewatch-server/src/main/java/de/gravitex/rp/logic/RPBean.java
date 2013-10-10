@@ -87,4 +87,16 @@ public class RPBean implements RPRemote {
 		}
 		return (WindowState) resultList.get(0);
 	}
+
+	public void ping(String pingMessage) {
+		System.out.println("im getting pinged with message : '"+pingMessage+"'.");
+	}
+
+	public void createComponentMessage(String windowsIdentifier, WindowStateInfo state) {
+		ComponentMessage message = new ComponentMessage();
+		message.setComponentidentifier(windowsIdentifier);
+		message.setEventtimestamp(new Date());
+		message.setComponentstate(state);
+		entityManager.persist(message);		
+	}
 }

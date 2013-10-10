@@ -1,29 +1,26 @@
 package de.gravitex.rp.core;
 
 import java.io.File;
-import java.util.Properties;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+import de.gravitex.rp.clientutil.RPClientUtil;
 import de.gravitex.rp.logic.RPRemote;
 import de.gravitex.rp.logic.WindowStateInfo;
 
 public class RPConnector {	
 	
 	//WINDOWS
-	private static final String BASE_DIR = "C:\\Users\\stefan.schulz\\Dropbox\\raspberry\\messages";
-	private static final String TARGET_DIR = "C:\\Users\\stefan.schulz\\Dropbox\\raspberry\\messages\\processed\\";
+//	private static final String BASE_DIR = "C:\\Users\\Schulz\\Dropbox\\raspberry\\messages";
+//	private static final String TARGET_DIR = "C:\\Users\\Schulz\\Dropbox\\raspberry\\messages\\processed\\";
 	
 	//LINUX
-//	private static final String BASE_DIR = "/var/tmp/messages/";
-//	private static final String TARGET_DIR = "/var/tmp/messages/processed/";
+	private static final String BASE_DIR = "/var/tmp/messages/";
+	private static final String TARGET_DIR = "/var/tmp/messages/processed/";
 	
 	private static final String ATTRIBUTE_IDENTIFIER = "identifier";
 
@@ -35,7 +32,7 @@ public class RPConnector {
 		
 		System.out.println("processing messages...");		
 		
-		RPRemote testRemote = lookup(EJB_MODULE_NAME, "RPBean", RPRemote.class);
+		RPRemote testRemote = RPClientUtil.lookup(EJB_MODULE_NAME, "RPBean", RPRemote.class);
 		
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -58,19 +55,4 @@ public class RPConnector {
 			}			
 		}
 	}	
-
-	//@SuppressWarnings("unchecked")
-	private static <T> T lookup(String moduleName, String beanName, Class<?> remoteClass) throws NamingException {
-		final Context context = getInitialContext();
-		String lookUp = "ejb:/"+moduleName+"/"+beanName+"!" + remoteClass.getName();
-		System.out.println("looking up : "+lookUp+".");
-		return (T) context.lookup(lookUp);
-	}
-
-	private static Context getInitialContext() throws NamingException {
-		final Properties jndiProperties = new Properties();
-		jndiProperties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
-		final Context context = new InitialContext(jndiProperties);
-		return context;
-	}
 }

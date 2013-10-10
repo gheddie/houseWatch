@@ -7,7 +7,6 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-
 public class FhemLogFileWatcher {
 	
 	private static final String PROP_COMPONENT_NAME = "componentName";
