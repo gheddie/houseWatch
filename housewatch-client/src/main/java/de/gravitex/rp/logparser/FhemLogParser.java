@@ -52,6 +52,7 @@ public class FhemLogParser {
 					}
 				}
 			}
+			reader.close();
 			return descriptor;
 		} catch (IOException e) {
 			e.printStackTrace();
