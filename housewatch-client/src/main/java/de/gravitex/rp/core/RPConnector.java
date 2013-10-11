@@ -8,7 +8,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import de.gravitex.rp.clientutil.RPClientUtil;
+import de.gravitex.rp.core.util.RPLookupHelper;
 import de.gravitex.rp.logic.RPRemote;
 import de.gravitex.rp.logic.WindowStateInfo;
 
@@ -32,7 +32,7 @@ public class RPConnector {
 		
 		System.out.println("processing messages...");		
 		
-		RPRemote testRemote = RPClientUtil.lookup(EJB_MODULE_NAME, "RPBean", RPRemote.class);
+		RPRemote testRemote = RPLookupHelper.lookup(EJB_MODULE_NAME, "RPBean", RPRemote.class);
 		
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();

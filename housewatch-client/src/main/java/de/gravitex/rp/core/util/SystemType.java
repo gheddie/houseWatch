@@ -1,4 +1,4 @@
-package de.gravitex.rp.clientutil;
+package de.gravitex.rp.core.util;
 
 public enum SystemType {
 	WIN_7,

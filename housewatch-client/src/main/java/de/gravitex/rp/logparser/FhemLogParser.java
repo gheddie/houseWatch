@@ -9,13 +9,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import de.gravitex.rp.core.util.SystemType;
+import de.gravitex.rp.core.util.RpUrlProvider;
 import de.gravitex.rp.logic.WindowStateInfo;
 
 public class FhemLogParser {
-
-	public static final String LOGFILE_DIR = "C:\\fhemlog\\";
-	
-	public static final String OUTPUT_DIR = "C:\\Users\\stefan.schulz\\Dropbox\\raspberry\\messages";
 
 	public static final String LAN_ADAPTER = "HMLAN1";
 
@@ -26,16 +24,19 @@ public class FhemLogParser {
 	SimpleDateFormat dfOut = new SimpleDateFormat("yyyyMMdd.HHmmss");
 
 	private String componentName;
+
+	private SystemType systemType;
 	
-	public FhemLogParser(String componentName) {
+	public FhemLogParser(String componentName, SystemType systemType) {
 		super();
 		this.componentName = componentName;
+		this.systemType = systemType;
 	}
 
 	private ComponentStateDescriptor stateDescriptor() {
 		try {
 			int year = Calendar.getInstance().get(Calendar.YEAR);
-			BufferedReader reader = new BufferedReader(new FileReader(LOGFILE_DIR + componentName + "-"+year+".log"));
+			BufferedReader reader = new BufferedReader(new FileReader(RpUrlProvider.gimmeLogDirectory(systemType) + componentName + "-"+year+".log"));
 			String row = null;
 			ComponentStateDescriptor descriptor = new ComponentStateDescriptor();
 			while ((row = reader.readLine()) != null) {
@@ -71,7 +72,7 @@ public class FhemLogParser {
 		result.append("<message identifier=\""+componentName+"\" state=\"" + descriptor.getWindowStateInfo() + "\" />");
 //		System.out.println(result.toString());
 		try {
-			String resultFileName = OUTPUT_DIR + "\\" + componentName+"_"+dfOut.format(descriptor.getTimeStamp())+".xml";
+			String resultFileName = RpUrlProvider.gimmeMessagesDirectory(systemType) + componentName+"_"+dfOut.format(descriptor.getTimeStamp())+".xml";
 			FileWriter fileWriter = new FileWriter(resultFileName);
 			BufferedWriter out = new BufferedWriter(fileWriter);
 			String outText = result.toString();

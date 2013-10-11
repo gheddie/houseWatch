@@ -1,4 +1,4 @@
-package de.gravitex.rp.clientutil;
+package de.gravitex.rp.core.util;
 
 import java.util.Properties;
 
@@ -6,7 +6,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-public class RPClientUtil {
+public class RPLookupHelper {
 
 	@SuppressWarnings("unchecked")
 	public static <T> T lookup(String moduleName, String beanName, Class<?> remoteClass) throws NamingException {

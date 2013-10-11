@@ -4,7 +4,7 @@ import java.util.Date;
 
 import javax.naming.NamingException;
 
-import de.gravitex.rp.clientutil.RPClientUtil;
+import de.gravitex.rp.core.util.RPLookupHelper;
 import de.gravitex.rp.logic.RPRemote;
 import de.gravitex.rp.logic.WindowStateInfo;
 
@@ -15,7 +15,7 @@ public class PingJBoss {
 	public static void main(String[] args) {
 		
 		try {
-			RPRemote testRemote = RPClientUtil.lookup(EJB_MODULE_NAME, "RPBean", RPRemote.class);
+			RPRemote testRemote = RPLookupHelper.lookup(EJB_MODULE_NAME, "RPBean", RPRemote.class);
 			testRemote.ping("client time is now : "+new Date()+".");
 			testRemote.createComponentMessage("123", WindowStateInfo.CLOSE);
 		} catch (NamingException e) {
